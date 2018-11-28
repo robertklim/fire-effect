@@ -1,12 +1,15 @@
 let buffer1;
 let buffer2;
 let cooling;
-let w = 100
-let h = 100
+let w = 100;
+let h = 50;
 let ystart = 0.0;
+let col;
 
 function setup() {
     createCanvas(w * 2, h);
+
+    col = color(255);
 
     buffer1 = createImage(w, h);
     buffer2 = createImage(w, h);
@@ -16,14 +19,15 @@ function setup() {
 
 function fire(rows) {
     buffer1.loadPixels();
+    let c = col;
     for (let x = 0; x < w; x++) {
         for (let j = 0; j < rows; j++) {
             let y = h - (j + 1);
             let index = (x + y * w) * 4;
-            buffer1.pixels[index] = red(color(255));
-            buffer1.pixels[index + 1] = green(color(255));
-            buffer1.pixels[index + 2] = blue(color(255));
-            buffer1.pixels[index + 3] = alpha(color(255));
+            buffer1.pixels[index] = red(c);
+            buffer1.pixels[index + 1] = green(c);
+            buffer1.pixels[index + 2] = blue(c);
+            buffer1.pixels[index + 3] = alpha(c);
         }
     }
 
@@ -63,7 +67,7 @@ function cool() {
 function draw() {
     background(0);
 
-    fire(2);
+    fire(3);
     cool();
 
     //image(buffer1, 0, 0);
