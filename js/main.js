@@ -1,11 +1,14 @@
 let buffer1;
 let buffer2;
+let cooling;
 
 function setup() {
     createCanvas(60, 60);
 
     buffer1 = createImage(width, height);
     buffer2 = createImage(width, height);
+    cooling = createImage(width, height);
+    cool();
 
 }
 
@@ -23,6 +26,30 @@ function fire(rows) {
     }
 
     buffer1.updatePixels();
+}
+
+function cool() {
+    cooling.loadPixels();
+
+    let xoff = 0.0;
+    let increment = 0.02;
+
+    for (let x = 0; x < width; x++) {
+        xoff += increment;
+        let yoff = 0.0;
+        for (let y = 0; y < height; y++) {
+            yoff += increment;
+            let bright = noise(xoff, yoff) * 255;
+            let index = (x + y * width) * 4;
+            cooling.pixels[index] = red(color(bright));
+            cooling.pixels[index + 1] = green(color(bright));
+            cooling.pixels[index + 2] = blue(color(bright));
+            cooling.pixels[index + 3] = alpha(color(bright));
+        }
+    }
+
+    cooling.updatePixels();
+
 }
 
 function draw() {
@@ -66,5 +93,6 @@ function draw() {
     buffer1 = buffer2;
     buffer2 = tmp;
 
-    image(buffer2, 0, 0);
+    // image(buffer2, 0, 0);
+    image(cooling, 0, 0);
 }
