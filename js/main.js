@@ -11,8 +11,10 @@ function setup() {
 
     col = color(255);
 
-    buffer1 = createImage(w, h);
-    buffer2 = createImage(w, h);
+    // buffer1 = createImage(w, h);
+    // buffer2 = createImage(w, h);
+    buffer1 = createGraphics(w, h);
+    buffer2 = createGraphics(w, h);
     cooling = createImage(w, h);
 
 }
@@ -62,6 +64,11 @@ function cool() {
 
     cooling.updatePixels();
     ystart += increment;
+}
+
+function mousePressed() {
+    buffer1.fill(255);
+    buffer1.ellipse(mouseX, mouseY, 10, 10);
 }
 
 function draw() {
